@@ -10,6 +10,7 @@ const router = express.Router();
 // Add to cart
 router.post("/add", authMiddleware, async (req, res) => {
   const { productId, quantity } = req.body;
+  console.log(productId);
 
   try {
     const user = await User.findByPk(req.user.id);
@@ -39,7 +40,10 @@ router.get("/", authMiddleware, async (req, res) => {
       },
     });
 
-    res.json(user.Products);
+    res.json({
+      data: user.Products,
+      message: "Successfully get cart",
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error." });
   }

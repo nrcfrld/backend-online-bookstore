@@ -30,7 +30,10 @@ router.get("/", async (req, res) => {
 
   try {
     const products = await Product.findAll({ where });
-    res.json(products);
+    res.json({
+      data: products,
+      message: "Successfully get products",
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error.", error: error.message });
   }
@@ -42,7 +45,10 @@ router.get("/:id", async (req, res) => {
     const product = await Product.findByPk(req.params.id);
     if (!product)
       return res.status(404).json({ message: "Product not found." });
-    res.json(product);
+    res.json({
+      data: product,
+      message: "Successfully get product",
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error." });
   }
@@ -72,7 +78,10 @@ router.post(
         thumbnail: thumbnailPath,
       });
 
-      res.status(201).json(product);
+      res.status(201).json({
+        data: product,
+        message: "Successfully create product",
+      });
     } catch (error) {
       res.status(500).json({ message: "Server error.", error: error.message });
     }
@@ -107,7 +116,10 @@ router.put(
       }
 
       await product.save();
-      res.json(product);
+      res.json({
+        data: product,
+        message: "Successfully update product",
+      });
     } catch (error) {
       res.status(500).json({ message: "Server error.", error: error.message });
     }

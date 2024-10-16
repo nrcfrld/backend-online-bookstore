@@ -35,45 +35,45 @@ app.use("/api/orders", orderRoutes);
 
 // Sinkronisasi database dan menjalankan server
 sequelize
-  .sync({ force: false, alter: false }) // Set ke true untuk reset database setiap start
+  .sync({ force: true, alter: true }) // Set ke true untuk reset database setiap start
   .then(() => {
     console.log("Database & tables created!");
     // Tambahkan beberapa produk awal jika diperlukan
     // Contoh:
 
-    Product.bulkCreate(
-      [
-        {
-          title: "How to Win Friends",
-          author: "Author A",
-          price: 100000,
-          category: "Fiksi",
-          stock: 10,
-          thumbnail: "/uploads/default.png",
-        },
-        {
-          title: "Buku B",
-          author: "Author B",
-          price: 150000,
-          category: "Non-Fiksi",
-          stock: 5,
-          thumbnail: "/uploads/default.png",
-        },
-        {
-          title: "Buku C",
-          author: "Author C",
-          price: 200000,
-          category: "Teknologi",
-          stock: 8,
-          thumbnail: "/uploads/default.png",
-        },
-      ],
-      { ignoreDuplicates: false }
-    )
-      .then(() => {
-        console.log("Produk awal telah ditambahkan.");
-      })
-      .catch((err) => console.log("Error menambahkan produk awal:", err));
+    // Product.bulkCreate(
+    //   [
+    //     {
+    //       title: "How to Win Friends",
+    //       author: "Author A",
+    //       price: 100000,
+    //       category: "Fiksi",
+    //       stock: 10,
+    //       thumbnail: "/uploads/default.png",
+    //     },
+    //     {
+    //       title: "Buku B",
+    //       author: "Author B",
+    //       price: 150000,
+    //       category: "Non-Fiksi",
+    //       stock: 5,
+    //       thumbnail: "/uploads/default.png",
+    //     },
+    //     {
+    //       title: "Buku C",
+    //       author: "Author C",
+    //       price: 200000,
+    //       category: "Teknologi",
+    //       stock: 8,
+    //       thumbnail: "/uploads/default.png",
+    //     },
+    //   ],
+    //   { ignoreDuplicates: false }
+    // )
+    //   .then(() => {
+    //     console.log("Produk awal telah ditambahkan.");
+    //   })
+    //   .catch((err) => console.log("Error menambahkan produk awal:", err));
 
     const PORT = process.env.PORT || 3123;
     app.listen(PORT, () => {
